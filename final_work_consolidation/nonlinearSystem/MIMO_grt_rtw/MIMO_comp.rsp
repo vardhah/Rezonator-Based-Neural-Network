@@ -1,0 +1,10 @@
+-IC:\Users\vardhah\Desktop\final_work_consolidation\nonlinearSystem
+-IC:\Users\vardhah\Desktop\final_work_consolidation\nonlinearSystem\MIMO_grt_rtw
+-I"C:\Program Files\MATLAB\R2019a\extern\include"
+-I"C:\Program Files\MATLAB\R2019a\simulink\include"
+-I"C:\Program Files\MATLAB\R2019a\rtw\c\src"
+-I"C:\Program Files\MATLAB\R2019a\rtw\c\src\ext_mode\common"
+-I"C:\Program Files\MATLAB\R2019a\toolbox\dsp\include"
+-I"C:\Program Files\MATLAB\R2019a\toolbox\dsp\extern\src\export\include\src"
+-I"C:\Program Files\MATLAB\R2019a\toolbox\dsp\extern\src\export\include"
+-I"C:\Program Files\MATLAB\R2019a\toolbox\shared\dsp\vision\matlab\include"

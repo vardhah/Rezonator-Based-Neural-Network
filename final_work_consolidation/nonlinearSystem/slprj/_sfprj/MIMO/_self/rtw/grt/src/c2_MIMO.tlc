@@ -1,0 +1,173 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    NumChartData   21 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "w1"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:90-92"\
+      Dimensions   [2,32]\
+    }\
+    ChartData {\
+      Name         "w1_not_empty"\
+      Description  "EmlPersistentSentinel"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:90-92"\
+    }\
+    ChartData {\
+      Name         "w2"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:93-95"\
+      Dimensions   [32,32]\
+    }\
+    ChartData {\
+      Name         "w2_not_empty"\
+      Description  "EmlPersistentSentinel"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:93-95"\
+    }\
+    ChartData {\
+      Name         "w3"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:96-98"\
+      Dimensions   [32,8]\
+    }\
+    ChartData {\
+      Name         "w3_not_empty"\
+      Description  "EmlPersistentSentinel"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:96-98"\
+    }\
+    ChartData {\
+      Name         "vy"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:111-113"\
+      Dimensions   [2]\
+    }\
+    ChartData {\
+      Name         "g1"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:126-128"\
+      Dimensions   [1,64]\
+    }\
+    ChartData {\
+      Name         "g2"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:129-131"\
+      Dimensions   [1,1024]\
+    }\
+    ChartData {\
+      Name         "g3"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:132-134"\
+      Dimensions   [1,256]\
+    }\
+    ChartData {\
+      Name         "itr"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:147-150"\
+    }\
+    ChartData {\
+      Name         "J"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:163-164"\
+    }\
+    ChartData {\
+      Name         "mult1"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:210-215"\
+    }\
+    ChartData {\
+      Name         "mult1_not_empty"\
+      Description  "EmlPersistentSentinel"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:210-215"\
+    }\
+    ChartData {\
+      Name         "mult2"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:216-221"\
+    }\
+    ChartData {\
+      Name         "mult2_not_empty"\
+      Description  "EmlPersistentSentinel"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:216-221"\
+    }\
+    ChartData {\
+      Name         "mult3"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:222-227"\
+    }\
+    ChartData {\
+      Name         "mult3_not_empty"\
+      Description  "EmlPersistentSentinel"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:222-227"\
+    }\
+    ChartData {\
+      Name         "memory_alloc_flag"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:240-257"\
+    }\
+    ChartData {\
+      Name         "n"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:362:270-271"\
+    }\
+    ChartData {\
+      Name         "state"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "C:\Program Files\MATLAB\R2019a\toolbox\eml\lib\matlab\randfun\private\eml_rand_mt19937ar_stateful.m:166-171"\
+      Dimensions   [625]\
+    }\
+  }
+  %return ChartDataElements
+%endfunction

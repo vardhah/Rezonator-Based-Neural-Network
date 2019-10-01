@@ -1,0 +1,102 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    NumChartData   12 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "g"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:100-101"\
+    }\
+    ChartData {\
+      Name         "g_not_empty"\
+      Description  "EmlPersistentSentinel"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:100-101"\
+    }\
+    ChartData {\
+      Name         "c"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:102-103"\
+    }\
+    ChartData {\
+      Name         "c_not_empty"\
+      Description  "EmlPersistentSentinel"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:102-103"\
+    }\
+    ChartData {\
+      Name         "bfr_rezo_sm"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:104-115"\
+    }\
+    ChartData {\
+      Name         "bfr_rezo_sm_not_empty"\
+      Description  "EmlPersistentSentinel"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:104-115"\
+    }\
+    ChartData {\
+      Name         "aft_delay"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:116-125"\
+    }\
+    ChartData {\
+      Name         "aft_delay_not_empty"\
+      Description  "EmlPersistentSentinel"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:116-125"\
+    }\
+    ChartData {\
+      Name         "dft_out"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:126-133"\
+    }\
+    ChartData {\
+      Name         "dft_out_not_empty"\
+      Description  "EmlPersistentSentinel"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:126-133"\
+    }\
+    ChartData {\
+      Name         "n"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:173-174"\
+    }\
+    ChartData {\
+      Name         "memory_alloc_flag"\
+      Description  "EmlPersistent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  "MIMO:339:187-204"\
+    }\
+  }
+  %return ChartDataElements
+%endfunction

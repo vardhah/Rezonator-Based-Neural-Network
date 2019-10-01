@@ -1,0 +1,17 @@
+snap=100000;
+t_length=get(nn_coef,'Length');
+sys6a=getdatasamples(nn_coef,[t_length-snap:t_length]);
+systime=sys6a';
+
+
+x=systime(:,1:end-1);
+x2=systime(:,2:end);
+%bring control data and concaanate ( OMEGA)
+%find SVD of OMEGA
+
+
+[U,S,V]=svd(x,'econ');
+semilogy(diag(S))
+Atilde=U'*x2*V*inv(S);
+[W,eigs]=eig(Atilde);
+phi=x2*V*inv(S)*W;
