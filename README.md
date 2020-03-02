@@ -1,5 +1,5 @@
 # ProjectR_X_0.1
-Rezonator based NN(ReBNN) is a new architecture which uses learn the system in frequency domain and use classical passive structures to gurantee stability of learned Neural network. 
+Rezonator based NN(ReBNN) is a new architecture which learn the system behaviour in frequency domain and use classical passive structures to gurantee stability of learned Neural network. 
 
   
 Goal : The aim of the project is to demonstarte the capabilities of ReBNN in comparision to classical NN based system. The comparison results can be written in context of 
