@@ -1,7 +1,8 @@
 # ProjectR_X_0.1
-scalable experiment of RBNN
+Rezonator based NN(ReBNN) is a new architecture which uses learn the system in frequency domain and use classical passive structures to gurantee stability of learned Neural network. 
+
   
-Goal : The aim of the project is to demonstarte the capabilities of RBNN in comparision to classical NN based system. The comparison results can be written in context of 
+Goal : The aim of the project is to demonstarte the capabilities of ReBNN in comparision to classical NN based system. The comparison results can be written in context of 
 
 1. Size of network 
 2. computational expense
