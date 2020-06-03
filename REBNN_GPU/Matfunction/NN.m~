@@ -32,20 +32,19 @@ output_layer=layer_3;
 isempty(w1)
 % weight Intialisation 
 if training==1
-if isempty(w1)
-       
+  if isempty(w1)  
     w1=randn(input_layer,layer_1)*0.1;
-end
-if isempty(w2)
+  end
+  if isempty(w2)
        w2=randn(layer_1,layer_2)*0.1;
-end
-if isempty(w3)
+  end
+  if isempty(w3)
        w3=randn(layer_2,layer_3)*0.1;
-end
+  end
 
 elseif training==0 
      load(weights.mat);
-    
+end    
 %%%%%---------------------------------------------------------------------------------%%%%%
 
 %%
@@ -226,6 +225,7 @@ if mod(n,M)==0 && stop==0 && sum(1*(max(z3-5,0)>0),'all')==0
     J= sum(df.^2,'all')/(2*M);
 end
 end
+end
 %For logging & visulisation purpose
 
 
@@ -234,7 +234,7 @@ nn_op=an3;
 
 if mod(n,100)==0 && training==1
     save('weights.mat','w1','w2','w3');
-
+end
 end
 
 

@@ -11,5 +11,5 @@ D = m*L*L;
 f=interp1(ft,f,t);
 u=f;
 dy(1,1) = y(2);
-dy(2,1) = (1/D)*(-m*g*L*Sy - b*y(1)) +(1/D)*u;
+dy(2,1) = (1/D)*(-m*g*L*Sy - b*y(2)) +(1/D)*u;
 end

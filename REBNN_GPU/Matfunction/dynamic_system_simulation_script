@@ -1,17 +1,23 @@
-time=10;
-sample_frequency= 10000;  % in Hz
-y0=[0;0];
-tspan=0:(1/sample_frequency):time; 
+
+time=100;
+sample_frequency= 1000;  % in 1/Hz
+y0=[0;0];                % inital position(theta,theta_dot)
+input_freq= 1            % in rad/sec
+amplitude=3.8            % amplitude of sine wave
+
+
+%duration= (time*2*pi)/6.2814*input_freq;
+tspan=0:(1/sample_frequency):(time*input_freq); 
 ft=tspan;
 f= 3.8*sin(tspan);
 
-
-
-%[t,y]=ode5(@(t,y)pend_test(t,y,ft,f),tspan,y0);
-y=ode5(@(t,y)pend_test(t,y,ft,f),tspan,y0);
+[t,y]=ode45(@(t,y)pend_test(t,y,ft,f),tspan,y0);
+%y=ode5(@(t,y)pend_test(t,y,ft,f),tspan,y0);
 theta=y(:,1);
 plot(theta)
 hold on;
 theta_dot=y(:,2);
 plot(theta_dot)
 grid on
+legend('theta','thetadot')
+plot(f) 

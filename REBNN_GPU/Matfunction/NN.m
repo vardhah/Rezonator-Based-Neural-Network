@@ -32,16 +32,15 @@ output_layer=layer_3;
 isempty(w1)
 % weight Intialisation 
 if training==1
-if isempty(w1)
-       
+  if isempty(w1)  
     w1=randn(input_layer,layer_1)*0.1;
-end
-if isempty(w2)
+  end
+  if isempty(w2)
        w2=randn(layer_1,layer_2)*0.1;
-end
-if isempty(w3)
+  end
+  if isempty(w3)
        w3=randn(layer_2,layer_3)*0.1;
-end
+  end
 
 elseif training==0 
      load(weights.mat);
