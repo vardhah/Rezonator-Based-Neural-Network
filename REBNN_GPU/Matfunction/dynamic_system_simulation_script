@@ -1,5 +1,5 @@
 
-time=100;
+time=20;
 sample_frequency= 1000;  % in 1/Hz
 y0=[0;0];                % inital position(theta,theta_dot)
 input_freq= 1            % in rad/sec
@@ -21,3 +21,4 @@ plot(theta_dot)
 grid on
 legend('theta','thetadot')
 plot(f) 
+

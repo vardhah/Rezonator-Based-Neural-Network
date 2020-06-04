@@ -25,7 +25,7 @@ layer_3=128;       % Output layer must match with number of rezonators declared 
 
 %learning rate. Currently reading from input pin 
 alpha = learning_rate;
-
+stop=training;
 %others
 input_layer =M+E;       %layer_0
 output_layer=layer_3;

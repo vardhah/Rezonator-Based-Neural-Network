@@ -33,8 +33,8 @@ if memory_alloc_flag==0
  memory_alloc_flag=1;
 end
 
-g=gpuArray(g) ;
-c=gpuArray(c);
+%g=g) ;
+%c=gpuArray(c);
 
 
 %Initialisation of variables  =====> 
