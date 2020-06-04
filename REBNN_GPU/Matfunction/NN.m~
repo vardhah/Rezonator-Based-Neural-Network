@@ -25,71 +25,58 @@ layer_3=128;       % Output layer must match with number of rezonators declared 
 
 %learning rate. Currently reading from input pin 
 alpha = learning_rate;
-stop=training;
+
 %others
 input_layer =M+E;       %layer_0
 output_layer=layer_3;
-isempty(w1)
-% weight Intialisation 
-if training==1
-  if isempty(w1)  
-    w1=randn(input_layer,layer_1)*0.1;
-  end
-  if isempty(w2)
-       w2=randn(layer_1,layer_2)*0.1;
-  end
-  if isempty(w3)
-       w3=randn(layer_2,layer_3)*0.1;
-  end
 
-elseif training==0 
-     load(weights.mat);
+a=isempty(memory_alloc_flag);
+if a==1
+  memory_alloc_flag = 0;
+end
+
+% weight Intialisation 
+if training==1 && memory_alloc_flag ==0 
+  fprintf('Training')
+  w1=randn(input_layer,layer_1)*0.1;
+  w2=randn(layer_1,layer_2)*0.1;
+  w3=randn(layer_2,layer_3)*0.1;
+
+elseif training==0 && memory_alloc_flag ==0 
+     load('weights.mat');
 end    
 %%%%%---------------------------------------------------------------------------------%%%%%
 
 %%
+if memory_alloc_flag ==0   %Allocation of variables that will be used during runtime( one time execution code)
 
-%synchronising clock
-if isempty(n)
-        n = 0; end
-n=n+1;
-
-%%
-%Allocation of variables that will be used during runtime( one time execution code) 
-if isempty(z1)
-       z1= zeros(layer_1,1);
-end
-if isempty(z2)
-       z2= zeros(layer_2,1);
-end
-if isempty(z3)
-       z3= zeros(layer_3,1);
-end
-if isempty(an3)
-       an3= zeros(layer_3,1);
-end
-
-if isempty(memory_alloc_flag)
-        memory_alloc_flag = 0; 
-end
-if isempty(mult1)
-       mult1=zeros(layer_1,layer_1*input_layer); 
-end
-if isempty(mult2)
-       mult2=zeros(layer_2,layer_1*layer_2); 
-end
-if isempty(mult3)
-       mult3=zeros(layer_3,layer_2*layer_3); 
-end
-if isempty(vy)
-       vy=zeros(input_layer,M); 
-end
-
-if memory_alloc_flag==0
- %write memory allocation for looped code here.It runs once and store it in memory.  
- mult1=[];
- mult2=[];
- mult3=[];
+  n = 0;                            %synchronising clock   
+  z1= zeros(layer_1,1);
+  z2= zeros(layer_2,1);
+  z3= zeros(layer_3,1);
+  an3= zeros(layer_3,1);
+ 
+ %Initialisation of delta of weight storage
+  del_w1=zeros(1,input_layer*layer_1);
+  del_w2=zeros(1,layer_2*layer_1);
+  del_w3=zeros(1,layer_2*layer_3);
+ 
+ %Intialising iteration number & cost value. 
+  itr=0;
+  J=0;
+  
+ %gradient initialisation(in matrix form) 
+  g1= zeros(M,input_layer*layer_1); 
+  g2= zeros(M,layer_1*layer_2); 
+  g3= zeros(M,layer_3*layer_2);
+  
+  mult1=zeros(layer_1,layer_1*input_layer); 
+  mult2=zeros(layer_2,layer_1*layer_2); 
+  mult3=zeros(layer_3,layer_2*layer_3); 
+  vy=zeros(input_layer,M);  
+  mult1=[];
+  mult2=[];
+  mult3=[];
   for iteration =1:layer_1
    mult1=[mult1;[zeros(1,(iteration-1)*input_layer) ones(1,input_layer) zeros(1,(layer_1-iteration)*input_layer)]];
   end
@@ -115,41 +102,9 @@ if memory_alloc_flag==0
  memory_alloc_flag=1; 
 end
 
-%%
-%============All other Initiaisation =========================>
-
-%Initialisation of delta of weight storage
-if isempty(del_w1)
-    del_w1=zeros(1,input_layer*layer_1);
-end
-if isempty(del_w2)
-    del_w2=zeros(1,layer_2*layer_1);
-end
-if isempty(del_w3)
-    del_w3=zeros(1,layer_2*layer_3);
-end
-
-%Intialising iteration number & cost value. 
-if isempty(itr)
-    itr=0;
-end
-if isempty(J)
-    J=0;
-end
-
-
-%gradient initialisation(in matrix form)
-if isempty(g1)
-    g1= zeros(M,input_layer*layer_1);   
-end
-if isempty(g2)
-    g2= zeros(M,layer_1*layer_2);   
-end
-if isempty(g3)
-    g3= zeros(M,layer_3*layer_2);   
-end
 
 %%
+n=n+1;
 %Input vector creation code block
 x_in = [real(u1(1:(size(u1,2)/2)+1)) imag(u1(1:(size(u1,2)/2)-1))];
 v=transpose([x_in transpose(u2)]);
@@ -175,7 +130,7 @@ a3=(1./(1+exp(-z3)));
 an3=(a3-0.5);
 
 %-------------> Backward Propogation -------->
-if training==1
+
 %calculation of Nv:
 da3_z3=a3.*(1-a3)*10;
 dn_a2=w3'.*repmat(da3_z3,1,layer_2);
@@ -211,7 +166,8 @@ g2=A*g2+B*dn_w2;
 g1=A*g1+B*dn_w1;
 
 %Training & updation only once in a batch(batch size=M,n=Overall counter) 
-if mod(n,M)==0 && stop==0 && sum(1*(max(z3-5,0)>0),'all')==0
+if mod(n,M)==0 && training==1 && sum(1*(max(z3-5,0)>0),'all')==0
+    
     del_w1 =alpha*df*1*g1/M ;
     del_w2 =alpha*df*1*g2/M ;
     del_w3 =alpha*df*1*g3/M ;
@@ -223,7 +179,6 @@ if mod(n,M)==0 && stop==0 && sum(1*(max(z3-5,0)>0),'all')==0
     w3=w3+ del_w_reshaped3; 
     itr=itr+1;
     J= sum(df.^2,'all')/(2*M);
-end
 end
 end
 %For logging & visulisation purpose
