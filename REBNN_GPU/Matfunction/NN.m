@@ -14,13 +14,12 @@ persistent z1 z2 z3 an3;
 %%
 %%%%%%----------------------------------------------------------------------------%%%%%
 %Hyper-parameter & other tunable part of code
-
 M=32;   %declare batch size of training (It will also be equal to number of input in our case as we are using DFT)
 E=1;    % size of external associative input
 
 %layer declaration
 layer_1=32;
-layer_2=64;
+layer_2=640;
 layer_3=128;       % Output layer must match with number of rezonators declared in rezonator function
 
 %learning rate. Currently reading from input pin 
@@ -37,45 +36,43 @@ end
 
 % weight Intialisation 
 if training==1 && memory_alloc_flag ==0 
-  fprintf('Training ...  \n')
-  w1=randn(input_layer,layer_1)*0.1;
-  w2=randn(layer_1,layer_2)*0.1;
-  w3=randn(layer_2,layer_3)*0.1;
+  fprintf('Training')
+  w1=randn(input_layer,layer_1,"gpuArray")*0.1;
+  w2=randn(layer_1,layer_2,"gpuArray")*0.1;
+  w3=randn(layer_2,layer_3,"gpuArray")*0.1;
 
 elseif training==0 && memory_alloc_flag ==0 
-    fprintf('weights loaded , Predicting ...  \n')
-    load('weights.mat');
-     
+     load('weights.mat');
 end    
 %%%%%---------------------------------------------------------------------------------%%%%%
 
 %%
 if memory_alloc_flag ==0   %Allocation of variables that will be used during runtime( one time execution code)
-
+  fprintf('In memory allocation block')
   n = 0;                            %synchronising clock   
-  z1= zeros(layer_1,1);
-  z2= zeros(layer_2,1);
-  z3= zeros(layer_3,1);
-  an3= zeros(layer_3,1);
+  z1= gpuArray.zeros(layer_1,1);
+  z2= gpuArray.zeros(layer_2,1);
+  z3= gpuArray.zeros(layer_3,1);
+  an3=gpuArray.zeros(layer_3,1);
  
  %Initialisation of delta of weight storage
-  del_w1=zeros(1,input_layer*layer_1);
-  del_w2=zeros(1,layer_2*layer_1);
-  del_w3=zeros(1,layer_2*layer_3);
+  del_w1=gpuArray.zeros(1,input_layer*layer_1);
+  del_w2=gpuArray.zeros(1,layer_2*layer_1);
+  del_w3=gpuArray.zeros(1,layer_2*layer_3);
  
  %Intialising iteration number & cost value. 
   itr=0;
   J=0;
   
  %gradient initialisation(in matrix form) 
-  g1= zeros(M,input_layer*layer_1); 
-  g2= zeros(M,layer_1*layer_2); 
-  g3= zeros(M,layer_3*layer_2);
+  g1= gpuArray.zeros(M,input_layer*layer_1); 
+  g2= gpuArray.zeros(M,layer_1*layer_2); 
+  g3= gpuArray.zeros(M,layer_3*layer_2);
   
-  mult1=zeros(layer_1,layer_1*input_layer); 
-  mult2=zeros(layer_2,layer_1*layer_2); 
-  mult3=zeros(layer_3,layer_2*layer_3); 
-  vy=zeros(input_layer,M);  
+  mult1=gpuArray.zeros(layer_1,layer_1*input_layer); 
+  mult2=gpuArray.zeros(layer_2,layer_1*layer_2); 
+  mult3=gpuArray.zeros(layer_3,layer_2*layer_3); 
+  vy=gpuArray.zeros(input_layer,M);  
   mult1=[];
   mult2=[];
   mult3=[];
@@ -88,6 +85,10 @@ if memory_alloc_flag ==0   %Allocation of variables that will be used during run
   for iterate=1:layer_3
    mult3=[mult3;[zeros(1,(iterate-1)*layer_2) ones(1,layer_2) zeros(1,(layer_3-iterate)*layer_2)]];
   end
+  mult1=gpuArray(mult1);
+  mult2=gpuArray(mult2);
+  mult3=gpuArray(mult3); 
+  
  %{
  for k= 1:input_layer
     for j = 1:M 
@@ -109,7 +110,7 @@ end
 n=n+1;
 %Input vector creation code block
 x_in = [real(u1(1:(size(u1,2)/2)+1)) imag(u1(1:(size(u1,2)/2)-1))];
-v=transpose([x_in transpose(u2)]);
+v=gpuArray(transpose([x_in transpose(u2)]));
 
 %v=transpose([u1' transpose(u2)]);
 %%
@@ -187,12 +188,10 @@ end
 
 
 %NN output assignment
-nn_op=an3;
+nn_op=gather(an3);
 
-if mod(n,100)==0 && training==1
-    save('weights.mat','w1','w2','w3');
+%if mod(n,100)==0 && training==1
+    %save('weights.mat','w1','w2','w3');
+%end
 end
-end
-
-
 
